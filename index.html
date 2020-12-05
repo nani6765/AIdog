@@ -152,14 +152,14 @@
 			async function predict() {
 				// predict can take in an image, video or canvas html element
 				var image = document.getElementById('dog_image');
-				const prediction = await model.predict(image, false);
-				prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
-				console.log(prediction);
-				
 				var nameLabel = '견주 : ';
 				var addressLabel = '주소 : ';
 				var phoneNumberLabel = '연락처 : ';
 				
+				const prediction = await model.predict(image, false);
+				prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+				console.log(prediction);
+				console.log("test", prediction[0].probability)
 				var resultDogName;
 				var resultName;
 				var resultAddress;
