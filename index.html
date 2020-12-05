@@ -159,43 +159,49 @@
 				const prediction = await model.predict(image, false);
 				prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
 				console.log(prediction);
-				console.log("test", prediction[0].probability)
+				//console.log("test", prediction[0].probability)
 				var resultDogName;
 				var resultName;
 				var resultAddress;
 				var resultNumber;
-				switch (prediction[0].className) {
-					case 'BlackDachshund':
-						resultDogName = '몽몽이';
-						resultName = '이재원';
-						resultAddress = '서울시 광진구 능동로 120, 새천년관';
-						resultNumber = '010 1234 1234';
-						break;
-					case 'ChocoPoodle':
-						resultDogName = '초코';
-						resultName = '김소현';
-						resultAddress = '서울시 광진구 화양동 94-11';
-						resultNumber = '010 1111 1222';
-						break;
-					case 'WhiteMaltiz':
-						resultDogName = '콩이';
-						resultName = '구선민';
-						resultAddress = '서울 광진구 능동로 137-3 지하 1층';
-						resultNumber = '010 7877 7364';
-						break;
-					default:
-						resultDogName = '알 수 없음';
-						resultName = '';
-						resultAddress = '';
-						resultNumber = '';
+				
+				if(prediction[0].probability > 0.7){
+					switch (prediction[0].className) {
+						case 'BlackDachshund':
+							resultDogName = '몽몽이';
+							resultName = '이재원';
+							resultAddress = '서울시 광진구 능동로 120, 새천년관';
+							resultNumber = '010 1234 1234';
+							break;
+						case 'ChocoPoodle':
+							resultDogName = '초코';
+							resultName = '김소현';
+							resultAddress = '서울시 광진구 화양동 94-11';
+							resultNumber = '010 1111 1222';
+							break;
+						case 'WhiteMaltiz':
+							resultDogName = '콩이';
+							resultName = '구선민';
+							resultAddress = '서울 광진구 능동로 137-3 지하 1층';
+							resultNumber = '010 7877 7364';
+							break;
+						default:
+							resultDogName = '알 수 없음';
+							resultName = '';
+							resultAddress = '';
+							resultNumber = '';
+					}
+					$('.dogName').html(resultDogName);
+					$('.namelabel').html(nameLabel);
+					$('.adminName').html(resultName);
+					$('.addresslabel').html(addressLabel);
+					$('.address').html(resultAddress);
+					$('.numberlabel').html(phoneNumberLabel);
+					$('.phoneNumber').html(resultNumber);	
+				} else {
+					resultDogName = '등록된 유실견이 아닙니다';
+					$('.dogName').html(resultDogName);
 				}
-				$('.dogName').html(resultDogName);
-				$('.namelabel').html(nameLabel);
-				$('.adminName').html(resultName);
-				$('.addresslabel').html(addressLabel);
-				$('.address').html(resultAddress);
-				$('.numberlabel').html(phoneNumberLabel);
-				$('.phoneNumber').html(resultNumber);		
 			}
 		</script>
 		<script
