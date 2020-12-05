@@ -87,7 +87,14 @@
 					</div>
 					<p class="text-center">AI가 등록된 강아지인지 판별중입니다.</p>
 				</div>
-				<p class="result-message"></p>
+				
+				<p class="dogName"></p>
+				<p><span class="namelabel"></span><span class="adminName"></span></p>
+				<p><span class="addresslabel"></span><span class="address"></span></p>
+				<p><span class="numberlabel"></span><span class="phoneNumber"></span></p>
+				
+				
+				
 				<div id="label-container" class="d-flex flex-column justify-content-around"></div>
 				<div class="addthis_inline_share_toolbox"></div>
 
@@ -148,27 +155,47 @@
 				const prediction = await model.predict(image, false);
 				prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
 				console.log(prediction);
-				var resultMessege;
+				
+				var nameLabel = '견주 : ';
+				var addressLabel = '주소 : ';
+				var phoneNumberLabel = '연락처 : ';
+				
+				var resultDogName;
+				var resultName;
+				var resultAddress;
+				var resultNumber;
 				switch (prediction[0].className) {
 					case 'BlackDachshund':
-						resultMessege = '1';
+						resultDogName = '몽몽이';
+						resultName = '이재원';
+						resultAddress = '서울시 광진구 능동로 120, 새천년관';
+						resultNumber = '010 1234 1234';
 						break;
 					case 'ChocoPoodle':
-						resultMessege = '2';
+						resultDogName = '초코';
+						resultName = '김소현';
+						resultAddress = '서울시 광진구 화양동 94-11';
+						resultNumber = '010 1111 1222';
 						break;
 					case 'WhiteMaltiz':
-						resultMessege = '3';
+						resultDogName = '콩이';
+						resultName = '구선민';
+						resultAddress = '서울 광진구 능동로 137-3 지하 1층';
+						resultNumber = '010 7877 7364';
 						break;
 					default:
-						resultMessege = '알 수 없음';
+						resultDogName = '알 수 없음';
+						resultName = '';
+						resultAddress = '';
+						resultNumber = '';
 				}
-				$('.result-message').html(resultMessege);
-
-				// for (let i = 0; i < maxPredictions; i++) {
-				// 	const classPrediction =
-				// 		prediction[i].className + ': ' + prediction[i].probability.toFixed(2);
-				// 	labelContainer.childNodes[i].innerHTML = classPrediction;
-				// }
+				$('.dogName').html(resultDogName);
+				$('.namelabel').html(nameLabel);
+				$('.adminName').html(resultName);
+				$('.addresslabel').html(addressLabel);
+				$('.adress').html(resultAddress);
+				$('.numberlabel').html(phoneNumberLabel);
+				$('.phoneNumber').html(resultNumber);		
 			}
 		</script>
 		<script
